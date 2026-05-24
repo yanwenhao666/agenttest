@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)file:///C:/Users/YWH/Desktop/deepseek_html_20260524_12bcf1.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>多Agent自动化测试平台 · 智能测试工厂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&amp;display=swap" rel="stylesheet">
+    <script src="./多Agent自动化测试平台 · 智能测试工厂_files/saved_resource"></script>
+    <link rel="stylesheet" href="./多Agent自动化测试平台 · 智能测试工厂_files/all.min.css">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        body {
+            background: radial-gradient(circle at 20% 30%, rgba(79, 70, 229, 0.08), rgba(139, 92, 246, 0.02)),
+                        linear-gradient(145deg, #f8fafc 0%, #eef2ff 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .test-case-card {
+            transition: all 0.2s;
+        }
+        .test-case-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
+        }
+        .log-entry {
+            border-left-width: 3px;
+            animation: fadeSlide 0.2s ease;
+        }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateX(-6px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .badge-agent {
+            background: rgba(99,102,241,0.12);
+            backdrop-filter: blur(4px);
+            border: 0.5px solid rgba(99,102,241,0.3);
+        }
+        button.primary-btn {
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+        }
+        button.primary-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+        }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #eef2ff; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #a5b4fc; border-radius: 10px; }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.float-right{float:right}.mx-auto{margin-left:auto;margin-right:auto}.mb-3{margin-bottom:0.75rem}.mb-9{margin-bottom:2.25rem}.ml-1{margin-left:0.25rem}.ml-auto{margin-left:auto}.mr-1{margin-right:0.25rem}.mr-2{margin-right:0.5rem}.mt-3{margin-top:0.75rem}.mt-4{margin-top:1rem}.mb-1\.5{margin-bottom:0.375rem}.mt-2{margin-top:0.5rem}.flex{display:flex}.grid{display:grid}.h-2{height:0.5rem}.h-80{height:20rem}.max-h-48{max-height:12rem}.w-2{width:0.5rem}.w-full{width:100%}.w-6{width:1.5rem}.max-w-7xl{max-width:80rem}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-7{gap:1.75rem}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.overflow-auto{overflow:auto}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-xl{border-radius:0.75rem}.rounded-lg{border-radius:0.5rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-l-4{border-left-width:4px}.border-gray-200{--tw-border-opacity:1;border-color:rgb(229 231 235 / var(--tw-border-opacity, 1))}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.border-gray-100{--tw-border-opacity:1;border-color:rgb(243 244 246 / var(--tw-border-opacity, 1))}.bg-black\/20{background-color:rgb(0 0 0 / 0.2)}.bg-emerald-50{--tw-bg-opacity:1;background-color:rgb(236 253 245 / var(--tw-bg-opacity, 1))}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-gray-50{--tw-bg-opacity:1;background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))}.bg-indigo-600{--tw-bg-opacity:1;background-color:rgb(79 70 229 / var(--tw-bg-opacity, 1))}.bg-white\/10{background-color:rgb(255 255 255 / 0.1)}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254 / var(--tw-bg-opacity, 1))}.bg-emerald-100{--tw-bg-opacity:1;background-color:rgb(209 250 229 / var(--tw-bg-opacity, 1))}.bg-gray-50\/70{background-color:rgb(249 250 251 / 0.7)}.bg-gray-800\/70{background-color:rgb(31 41 55 / 0.7)}.bg-indigo-50{--tw-bg-opacity:1;background-color:rgb(238 242 255 / var(--tw-bg-opacity, 1))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-indigo-700{--tw-gradient-from:#4338ca var(--tw-gradient-from-position);--tw-gradient-to:rgb(67 56 202 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-indigo-50{--tw-gradient-from:#eef2ff var(--tw-gradient-from-position);--tw-gradient-to:rgb(238 242 255 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-purple-700{--tw-gradient-to:rgb(126 34 206 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #7e22ce var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-pink-600{--tw-gradient-to:#db2777 var(--tw-gradient-to-position)}.to-purple-50{--tw-gradient-to:#faf5ff var(--tw-gradient-to-position)}.bg-clip-text{-webkit-background-clip:text;background-clip:text}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-2{padding:0.5rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-7{padding-left:1.75rem;padding-right:1.75rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.pb-2{padding-bottom:0.5rem}.pt-3{padding-top:0.75rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-\[11px\]{font-size:11px}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-2xl{font-size:1.5rem;line-height:2rem}.text-\[10px\]{font-size:10px}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.tracking-tight{letter-spacing:-0.025em}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9 / var(--tw-text-opacity, 1))}.text-emerald-700{--tw-text-opacity:1;color:rgb(4 120 87 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-indigo-300{--tw-text-opacity:1;color:rgb(165 180 252 / var(--tw-text-opacity, 1))}.text-indigo-500{--tw-text-opacity:1;color:rgb(99 102 241 / var(--tw-text-opacity, 1))}.text-indigo-700{--tw-text-opacity:1;color:rgb(67 56 202 / var(--tw-text-opacity, 1))}.text-indigo-800{--tw-text-opacity:1;color:rgb(55 48 163 / var(--tw-text-opacity, 1))}.text-rose-700{--tw-text-opacity:1;color:rgb(190 18 60 / var(--tw-text-opacity, 1))}.text-transparent{color:transparent}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216 / var(--tw-text-opacity, 1))}.text-gray-100{--tw-text-opacity:1;color:rgb(243 244 246 / var(--tw-text-opacity, 1))}.text-green-600{--tw-text-opacity:1;color:rgb(22 163 74 / var(--tw-text-opacity, 1))}.text-indigo-600{--tw-text-opacity:1;color:rgb(79 70 229 / var(--tw-text-opacity, 1))}.text-orange-500{--tw-text-opacity:1;color:rgb(249 115 22 / var(--tw-text-opacity, 1))}.text-orange-600{--tw-text-opacity:1;color:rgb(234 88 12 / var(--tw-text-opacity, 1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-40{opacity:0.4}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:bg-emerald-100:hover{--tw-bg-opacity:1;background-color:rgb(209 250 229 / var(--tw-bg-opacity, 1))}.hover\:bg-indigo-700:hover{--tw-bg-opacity:1;background-color:rgb(67 56 202 / var(--tw-bg-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}@media (min-width: 640px){.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:p-8{padding:2rem}.md\:text-5xl{font-size:3rem;line-height:1}}@media (min-width: 1024px){.lg\:col-span-2{grid-column:span 2 / span 2}.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}}</style></head>
+<body class="p-5 md:p-8 antialiased">
+
+<div class="max-w-7xl mx-auto">
+    <!-- 头部 -->
+    <div class="mb-9 flex flex-wrap justify-between items-center gap-4">
+        <div>
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 bg-clip-text text-transparent">
+                <i class="fas fa-vial text-indigo-500 mr-2"></i> 多Agent自动化测试平台
+            </h1>
+            <div class="flex flex-wrap gap-2 mt-3">
+                <span class="badge-agent text-indigo-700 text-xs px-3 py-1 rounded-full"><i class="fas fa-brain mr-1"></i> 用例生成Agent</span>
+                <span class="badge-agent text-emerald-700 text-xs px-3 py-1 rounded-full"><i class="fas fa-play mr-1"></i> 执行调度Agent</span>
+                <span class="badge-agent text-amber-700 text-xs px-3 py-1 rounded-full"><i class="fas fa-chart-line mr-1"></i> 断言分析Agent</span>
+                <span class="badge-agent text-rose-700 text-xs px-3 py-1 rounded-full"><i class="fas fa-file-alt mr-1"></i> 报告汇总Agent</span>
+            </div>
+        </div>
+        <div class="glass-card rounded-2xl px-5 py-2.5">
+            <div class="flex items-center gap-2 text-sm font-medium text-gray-700">
+                <i class="fas fa-robot text-indigo-500"></i>
+                <span>AI 驱动 · 全链路智能化测试</span>
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse ml-1"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-7">
+        <!-- 左侧：测试套件 + 测试用例列表 -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- API 端点与测试用例卡片 -->
+            <div id="testSuitesContainer" class="space-y-5"><div class="glass-card rounded-2xl p-4 transition-all">
+                <div class="flex flex-wrap justify-between items-start mb-3">
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">GET</span>
+                        <code class="font-mono text-gray-800 font-medium">/api/users</code>
+                        <span class="text-xs text-gray-400">未测试</span>
+                    </div>
+                    <button class="test-single-api text-indigo-600 text-xs bg-indigo-50 px-3 py-1 rounded-full" data-id="api1"><i class="fas fa-bolt"></i> 单独测试此API</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs max-h-48 overflow-auto">
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-green-600">✅ 正向用例: 完整字段匹配</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":765,"name":"mock_name","email":"mock_email",</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "id"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"name":"mock_name","email":"mock_email","role":"m</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "name"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":765,"email":"mock_email","role":"mock_role"}</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "email"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":765,"name":"mock_name","role":"mock_role"}</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "role"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":765,"name":"mock_name","email":"mock_email"}</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 包含额外未定义字段</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":765,"name":"mock_name","email":"mock_email",</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 字段 "id" 类型错误</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":"invalid_string","name":"mock_name","email":</div>
+                        </div>
+                    
+                </div>
+            </div><div class="glass-card rounded-2xl p-4 transition-all">
+                <div class="flex flex-wrap justify-between items-start mb-3">
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">GET</span>
+                        <code class="font-mono text-gray-800 font-medium">/api/posts</code>
+                        <span class="text-xs text-gray-400">未测试</span>
+                    </div>
+                    <button class="test-single-api text-indigo-600 text-xs bg-indigo-50 px-3 py-1 rounded-full" data-id="api2"><i class="fas fa-bolt"></i> 单独测试此API</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs max-h-48 overflow-auto">
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-green-600">✅ 正向用例: 完整字段匹配</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":267,"title":"mock_title","content":"mock_con</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "id"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"title":"mock_title","content":"mock_content","au</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "title"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":267,"content":"mock_content","authorId":606}</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "content"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":267,"title":"mock_title","authorId":606}</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "authorId"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":267,"title":"mock_title","content":"mock_con</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 包含额外未定义字段</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":267,"title":"mock_title","content":"mock_con</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 字段 "id" 类型错误</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"id":"invalid_string","title":"mock_title","conte</div>
+                        </div>
+                    
+                </div>
+            </div><div class="glass-card rounded-2xl p-4 transition-all">
+                <div class="flex flex-wrap justify-between items-start mb-3">
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700">POST</span>
+                        <code class="font-mono text-gray-800 font-medium">/api/orders</code>
+                        <span class="text-xs text-gray-400">未测试</span>
+                    </div>
+                    <button class="test-single-api text-indigo-600 text-xs bg-indigo-50 px-3 py-1 rounded-full" data-id="api3"><i class="fas fa-bolt"></i> 单独测试此API</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs max-h-48 overflow-auto">
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-green-600">✅ 正向用例: 完整字段匹配</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"orderId":661,"total":"15.98","status":"mock_stat</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "orderId"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"total":"15.98","status":"mock_status","userId":7</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "total"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"orderId":661,"status":"mock_status","userId":790</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "status"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"orderId":661,"total":"15.98","userId":790}</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 缺失字段 "userId"</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"orderId":661,"total":"15.98","status":"mock_stat</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 包含额外未定义字段</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"orderId":661,"total":"15.98","status":"mock_stat</div>
+                        </div>
+                    
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold text-orange-600">⚠️ 边界用例: 字段 "orderId" 类型错误</span>
+                            
+                            </div>
+                            <div class="text-gray-500 truncate">入参: {"orderId":"invalid_string","total":"15.98","statu</div>
+                        </div>
+                    
+                </div>
+            </div></div>
+            <!-- 启动测试按钮 + Agent 说明 -->
+            <div class="glass-card rounded-2xl p-5">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h3 class="font-bold text-xl flex items-center gap-2 text-indigo-800">
+                            <i class="fas fa-cogs"></i> 测试编排引擎
+                        </h3>
+                        <p class="text-gray-500 text-sm">多Agent协作：自动生成测试用例 → 并发执行 → 智能断言分析 → 生成测试报告</p>
+                    </div>
+                    <button id="runTestSuiteBtn" class="primary-btn bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-7 py-3 rounded-xl flex items-center gap-2 shadow-md">
+                        <i class="fas fa-flask"></i> 运行全部Agent测试
+                    </button>
+                </div>
+                <div class="mt-4 flex flex-wrap gap-3 text-xs text-gray-500 border-t pt-3">
+                    <span>✅ 正向用例</span> <span>⚠️ 边界用例</span> <span>🔍 智能断言对比</span> <span>📊 实时通过率</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧：Agent 实时日志 + 测试报告摘要 -->
+        <div class="space-y-6">
+            <!-- 实时日志（多Agent对话流） -->
+            <div class="glass-dark rounded-2xl overflow-hidden shadow-2xl">
+                <div class="bg-black/20 px-5 py-3 flex justify-between items-center border-b border-white/10">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-comments text-indigo-300"></i>
+                        <span class="font-mono font-semibold text-white">🤖 Agent 协作日志</span>
+                        <span class="text-[11px] bg-white/10 text-gray-300 px-2 py-0.5 rounded-full">长链推理 · 实时协作</span>
+                    </div>
+                    <button id="clearLogBtn" class="text-gray-300 hover:text-white text-sm"><i class="fas fa-trash-alt"></i> 清空</button>
+                </div>
+                <div id="logPanel" class="h-80 overflow-y-auto p-4 space-y-2 font-mono text-xs">
+                    <div class="text-gray-400 text-center py-10 flex flex-col items-center gap-2">
+                        <i class="fas fa-microphone-alt text-3xl opacity-40"></i>
+                        <p>⚡ 点击「运行全部Agent测试」</p>
+                        <p class="text-[11px]">将依次调用用例生成、执行调度、断言分析、报告汇总</p>
+                    </div>
+                <div class="log-entry p-2 rounded-lg bg-gray-800/70 border-l-4 mb-1.5" style="border-left-color: rgb(59, 130, 246);"><div class="flex gap-2"><span class="text-sm w-6">📌</span><div><span class="text-[10px] text-gray-400">[20:18:52]</span><div class="text-gray-100 text-xs">✨ 自动化测试平台已就绪 | 多Agent协作: 用例生成 → 执行 → 断言 → 报告</div></div></div></div></div>
+            </div>
+            <!-- 测试报告快照 -->
+            <div class="glass-card rounded-2xl p-5">
+                <div class="flex items-center gap-2 border-b border-gray-200 pb-2 mb-3">
+                    <i class="fas fa-chart-pie text-indigo-500"></i>
+                    <h3 class="font-bold text-gray-800">📈 最新测试报告</h3>
+                    <span id="reportTimestamp" class="text-[11px] text-gray-400 ml-auto">20:18:52</span>
+                </div>
+                <div id="reportSummary" class="space-y-3 text-sm">
+            <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-3 text-center">
+                <div class="text-2xl font-bold text-orange-500">0%</div>
+                <div class="text-xs text-gray-500">整体通过率</div>
+            </div>
+            <div class="text-sm space-y-1"><div><span class="font-mono">/api/users</span> <span class="float-right text-gray-400">未运行</span></div><div><span class="font-mono">/api/posts</span> <span class="float-right text-gray-400">未运行</span></div><div><span class="font-mono">/api/orders</span> <span class="float-right text-gray-400">未运行</span></div></div>
+            <div class="text-xs text-gray-500 mt-2">总计通过: 0/0 个用例</div>
+        </div>
+                <button id="syncFixBtn" class="mt-3 w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-sm font-medium py-2 rounded-xl transition flex items-center justify-center gap-2"><i class="fas fa-sync-alt"></i> 一键修正期望（模拟同步）</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ---------- 模拟被测试的 API 集合 (每个端点包含响应结构 + 动态生成的测试用例) ----------
+    let apis = [
+        { id: "api1", method: "GET", path: "/api/users", schema: { id: "integer", name: "string", email: "string", role: "string" }, testCases: [], lastTestResult: null },
+        { id: "api2", method: "GET", path: "/api/posts", schema: { id: "integer", title: "string", content: "string", authorId: "integer" }, testCases: [], lastTestResult: null },
+        { id: "api3", method: "POST", path: "/api/orders", schema: { orderId: "integer", total: "number", status: "string", userId: "integer" }, testCases: [], lastTestResult: null }
+    ];
+
+    // 辅助函数
+    function deepClone(obj) { return JSON.parse(JSON.stringify(obj)); }
+
+    // ---------- Agent 1: 测试用例生成器 (基于schema生成正向+边界+缺失字段场景) ----------
+    function generateTestCasesFromSchema(schema, endpointId) {
+        const cases = [];
+        // 1. 正向用例 (完整匹配)
+        const positiveData = {};
+        for (const [field, type] of Object.entries(schema)) {
+            positiveData[field] = generateMockValue(type, field);
+        }
+        cases.push({ id: `${endpointId}_pos`, type: "positive", description: "正向用例: 完整字段匹配", expectedSchema: schema, inputData: positiveData });
+        
+        // 2. 边界/异常: 缺失某个字段 (每个字段依次缺失)
+        const fields = Object.keys(schema);
+        for (let i = 0; i < fields.length; i++) {
+            const missingField = fields[i];
+            const mutated = { ...positiveData };
+            delete mutated[missingField];
+            cases.push({ id: `${endpointId}_missing_${missingField}`, type: "negative", description: `边界用例: 缺失字段 "${missingField}"`, expectedSchema: schema, inputData: mutated });
+        }
+        
+        // 3. 额外多余字段 (添加多余字段)
+        const extraData = { ...positiveData, extraField: "string_extra" };
+        cases.push({ id: `${endpointId}_extra`, type: "negative", description: `边界用例: 包含额外未定义字段`, expectedSchema: schema, inputData: extraData });
+        
+        // 4. 类型错误 (针对第一个字段类型变更)
+        if (fields.length > 0) {
+            const wrongTypeData = { ...positiveData };
+            const firstField = fields[0];
+            wrongTypeData[firstField] = schema[firstField] === "integer" ? "invalid_string" : 123;
+            cases.push({ id: `${endpointId}_typeerror`, type: "negative", description: `边界用例: 字段 "${firstField}" 类型错误`, expectedSchema: schema, inputData: wrongTypeData });
+        }
+        return cases;
+    }
+
+    function generateMockValue(type, fieldHint) {
+        if (type === "string") return `mock_${fieldHint}`;
+        if (type === "integer") return Math.floor(Math.random() * 1000);
+        if (type === "number") return (Math.random() * 100).toFixed(2);
+        if (type === "boolean") return true;
+        return null;
+    }
+
+    // 模拟 API 调用 (根据请求数据 + 原schema 返回实际响应。真实情况是后端返回，这里模拟：如果请求数据包含所有schema字段且类型正确，则返回完整schema对象；否则返回实际收到的数据)
+    function mockApiCall(endpoint, requestData) {
+        // 模拟服务端行为: 如果请求缺少必须字段或类型错误，则返回错误/部分字段
+        const schema = endpoint.schema;
+        let response = {};
+        let isValid = true;
+        // 检查每个 schema 字段是否存在且类型匹配
+        for (const [field, expectedType] of Object.entries(schema)) {
+            if (!(field in requestData)) {
+                isValid = false;
+                // 缺失字段，响应中不返回该字段
+                continue;
+            }
+            const value = requestData[field];
+            const actualType = typeof value;
+            let typeMatch = false;
+            if (expectedType === "integer" && Number.isInteger(value)) typeMatch = true;
+            else if (expectedType === "number" && (typeof value === "number" || !isNaN(parseFloat(value)))) typeMatch = true;
+            else if (expectedType === "string" && actualType === "string") typeMatch = true;
+            else if (expectedType === "boolean" && actualType === "boolean") typeMatch = true;
+            if (!typeMatch) isValid = false;
+            response[field] = value; // 原样返回
+        }
+        // 额外字段也返回
+        for (const [k,v] of Object.entries(requestData)) {
+            if (!(k in response)) response[k] = v;
+        }
+        return { response, isValid };
+    }
+
+    // Agent 3: 断言分析 (对比实际响应与预期Schema)
+    function analyzeAssertion(api, testCase, actualResponse, apiValidFlag) {
+        const expectedSchema = testCase.expectedSchema;
+        const errors = [];
+        // 检查预期字段是否存在且类型正确
+        for (const [field, expType] of Object.entries(expectedSchema)) {
+            if (!(field in actualResponse)) {
+                errors.push(`缺失预期字段: ${field}`);
+            } else {
+                const actualVal = actualResponse[field];
+                let typeOk = false;
+                if (expType === "integer" && Number.isInteger(actualVal)) typeOk = true;
+                else if (expType === "number" && typeof actualVal === "number") typeOk = true;
+                else if (expType === "string" && typeof actualVal === "string") typeOk = true;
+                else if (expType === "boolean" && typeof actualVal === "boolean") typeOk = true;
+                if (!typeOk) errors.push(`字段 ${field} 类型错误: 期望${expType}, 实际${typeof actualVal}`);
+            }
+        }
+        // 额外字段检查 (如果是正向用例则不允许额外字段)
+        if (testCase.type === "positive") {
+            for (const field of Object.keys(actualResponse)) {
+                if (!(field in expectedSchema)) {
+                    errors.push(`多余字段: ${field} (未在文档中定义)`);
+                }
+            }
+        }
+        const passed = errors.length === 0 && (testCase.type !== "positive" ? true : apiValidFlag !== false);
+        return { passed, errors, details: errors.join("; ") || "断言通过" };
+    }
+
+    // ---------- UI渲染: 展示测试套件与用例 ----------
+    function renderTestSuites() {
+        const container = document.getElementById('testSuitesContainer');
+        container.innerHTML = '';
+        apis.forEach(api => {
+            // 每次渲染前刷新用例 (让Agent生成实时用例)
+            const freshCases = generateTestCasesFromSchema(api.schema, api.id);
+            api.testCases = freshCases;
+            const passedCount = api.lastTestResult ? api.lastTestResult.filter(r => r.passed).length : 0;
+            const total = api.testCases.length;
+            const card = document.createElement('div');
+            card.className = `glass-card rounded-2xl p-4 transition-all`;
+            card.innerHTML = `
+                <div class="flex flex-wrap justify-between items-start mb-3">
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold ${api.method === 'GET' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700'}">${api.method}</span>
+                        <code class="font-mono text-gray-800 font-medium">${api.path}</code>
+                        ${api.lastTestResult ? `<span class="text-xs ${passedCount === total ? 'text-emerald-600' : 'text-amber-600'}"><i class="fas fa-chart-simple"></i> 通过率: ${passedCount}/${total}</span>` : '<span class="text-xs text-gray-400">未测试</span>'}
+                    </div>
+                    <button class="test-single-api text-indigo-600 text-xs bg-indigo-50 px-3 py-1 rounded-full" data-id="${api.id}"><i class="fas fa-bolt"></i> 单独测试此API</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs max-h-48 overflow-auto">
+                    ${api.testCases.map(tc => `
+                        <div class="bg-gray-50/70 rounded-lg p-2 border border-gray-100">
+                            <div class="flex justify-between"><span class="font-semibold ${tc.type === 'positive' ? 'text-green-600' : 'text-orange-600'}">${tc.type === 'positive' ? '✅' : '⚠️'} ${tc.description}</span>
+                            ${api.lastTestResult ? (api.lastTestResult.find(r=>r.caseId === tc.id)?.passed ? '<i class="fas fa-check-circle text-green-500"></i>' : '<i class="fas fa-times-circle text-red-400"></i>') : ''}
+                            </div>
+                            <div class="text-gray-500 truncate">入参: ${JSON.stringify(tc.inputData).substring(0, 50)}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+        // 绑定单独测试事件
+        document.querySelectorAll('.test-single-api').forEach(btn => {
+            btn.removeEventListener('click', handleSingleTest);
+            btn.addEventListener('click', handleSingleTest);
+        });
+    }
+
+    async function handleSingleTest(e) {
+        const apiId = e.currentTarget.getAttribute('data-id');
+        const api = apis.find(a => a.id === apiId);
+        if (api) {
+            addLogMessage('info', `🔍 触发单API测试: ${api.method} ${api.path}`, '#3b82f6');
+            await runAgentPipelineForApi(api);
+            renderTestSuites();
+            updateReportSummary();
+        }
+    }
+
+    // 针对单个API执行完整Agent流程 (用例生成已存在, 执行+断言+统计)
+    async function runAgentPipelineForApi(api) {
+        addLogMessage('agent', `📋 [用例生成Agent] 为 ${api.path} 生成 ${api.testCases.length} 个测试用例 (正向+边界)`, '#34d399');
+        await wait(300);
+        addLogMessage('agent', `⚙️ [执行调度Agent] 并发模拟调用API ...`, '#60a5fa');
+        await wait(400);
+        const results = [];
+        for (const testCase of api.testCases) {
+            const { response, isValid } = mockApiCall(api, testCase.inputData);
+            const assertion = analyzeAssertion(api, testCase, response, isValid);
+            results.push({ caseId: testCase.id, passed: assertion.passed, errors: assertion.errors, description: testCase.description, request: testCase.inputData, response });
+            await wait(50); // 模拟执行延迟
+        }
+        api.lastTestResult = results;
+        const passedCnt = results.filter(r => r.passed).length;
+        addLogMessage('agent', `🔍 [断言分析Agent] 完成断言: ${passedCnt}/${results.length} 通过, 失败用例详情已记录`, '#f97316');
+        await wait(200);
+        addLogMessage('success', `📊 [报告汇总Agent] ${api.path} 测试完成, 通过率 ${Math.round(passedCnt/results.length*100)}%`, '#10b981');
+        return results;
+    }
+
+    // 全局运行所有API测试
+    async function runFullTestSuite() {
+        if (isRunning) { addLogMessage('warning', '测试进行中，请稍后', '#f97316'); return; }
+        isRunning = true;
+        runBtn.disabled = true;
+        addLogMessage('info', '🚀 启动全自动化测试流水线 (多Agent协作)', '#6366f1');
+        for (const api of apis) {
+            await runAgentPipelineForApi(api);
+            renderTestSuites();
+            await wait(500);
+        }
+        updateReportSummary();
+        addLogMessage('success', '🎉 全部测试执行完毕，报告已更新', '#10b981');
+        runBtn.disabled = false;
+        isRunning = false;
+    }
+
+    function updateReportSummary() {
+        const container = document.getElementById('reportSummary');
+        const timeSpan = document.getElementById('reportTimestamp');
+        timeSpan.innerText = new Date().toLocaleTimeString();
+        let totalPass = 0, totalCases = 0;
+        const details = [];
+        apis.forEach(api => {
+            if (api.lastTestResult) {
+                const pass = api.lastTestResult.filter(r=>r.passed).length;
+                totalPass += pass;
+                totalCases += api.lastTestResult.length;
+                details.push(`<div><span class="font-mono">${api.path}</span> <span class="float-right">${pass}/${api.lastTestResult.length}</span></div>`);
+            } else {
+                details.push(`<div><span class="font-mono">${api.path}</span> <span class="float-right text-gray-400">未运行</span></div>`);
+            }
+        });
+        const overallRate = totalCases === 0 ? 0 : (totalPass / totalCases * 100).toFixed(1);
+        container.innerHTML = `
+            <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-3 text-center">
+                <div class="text-2xl font-bold ${overallRate >= 80 ? 'text-green-600' : 'text-orange-500'}">${overallRate}%</div>
+                <div class="text-xs text-gray-500">整体通过率</div>
+            </div>
+            <div class="text-sm space-y-1">${details.join('')}</div>
+            <div class="text-xs text-gray-500 mt-2">总计通过: ${totalPass}/${totalCases} 个用例</div>
+        `;
+    }
+
+    // 一键修正期望 (模拟“修复期望”，基于当前schema重新生成用例并标记所有正向用例通过)
+    function syncFix() {
+        addLogMessage('info', '🔧 一键修正: 重新校准测试预期 (模拟同步文档至代码行为)', '#8b5cf6');
+        apis.forEach(api => {
+            // 重新生成用例 (基于最新schema，即代码行为)
+            api.testCases = generateTestCasesFromSchema(api.schema, api.id);
+            // 清除历史结果 (需要重新测试才能生效)
+            api.lastTestResult = null;
+        });
+        renderTestSuites();
+        updateReportSummary();
+        addLogMessage('success', '已重置测试基线，请重新运行测试以验证一致性', '#10b981');
+    }
+
+    // ---------- 日志 和 辅助 ----------
+    let isRunning = false;
+    const runBtn = document.getElementById('runTestSuiteBtn');
+    const logPanel = document.getElementById('logPanel');
+    const clearLogBtn = document.getElementById('clearLogBtn');
+    const syncFixBtn = document.getElementById('syncFixBtn');
+
+    function addLogMessage(type, content, colorHint = '#64748b') {
+        const logDiv = document.createElement('div');
+        const timestamp = new Date().toLocaleTimeString();
+        let icon = '💬';
+        if (type === 'agent') icon = '🤖';
+        if (type === 'info') icon = '📌';
+        if (type === 'success') icon = '✅';
+        if (type === 'warning') icon = '⚠️';
+        if (type === 'error') icon = '❌';
+        logDiv.className = `log-entry p-2 rounded-lg bg-gray-800/70 border-l-4 mb-1.5`;
+        logDiv.style.borderLeftColor = colorHint;
+        logDiv.innerHTML = `<div class="flex gap-2"><span class="text-sm w-6">${icon}</span><div><span class="text-[10px] text-gray-400">[${timestamp}]</span><div class="text-gray-100 text-xs">${content}</div></div></div>`;
+        logPanel.appendChild(logDiv);
+        logDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function clearLog() { logPanel.innerHTML = ''; addLogMessage('info', '日志已清空', '#94a3b8'); }
+    clearLogBtn.addEventListener('click', clearLog);
+    const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    runBtn.addEventListener('click', runFullTestSuite);
+    syncFixBtn.addEventListener('click', syncFix);
+    
+    renderTestSuites();
+    updateReportSummary();
+    addLogMessage('info', '✨ 自动化测试平台已就绪 | 多Agent协作: 用例生成 → 执行 → 断言 → 报告', '#3b82f6');
+</script>
+
+</body></html>
